@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"lore-master/libs/documentation-sync/editorsettings"
 	"lore-master/libs/documentation-sync/workspacesettings"
 	"lore-master/libs/github-pages/sitedeployment"
 )
@@ -35,7 +36,7 @@ func sitePublishingPlanResult(workspaceRoot string) toolCallResult {
 
 	var outputs []sitedeployment.Output
 	var notes []string
-	loaded, err := workspacesettings.LoadSettings(workspaceRoot)
+	loaded, err := editorsettings.LoadConfiguration(workspaceRoot)
 	if err != nil {
 		notes = append(notes, fmt.Sprintf("%s could not be read: %v", workspacesettings.FileName, err))
 	}

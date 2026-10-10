@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"lore-master/apps/lore-master-engine/pagescommands"
+	"lore-master/libs/documentation-sync/editorsettings"
 	"lore-master/libs/documentation-sync/workspacesettings"
 )
 
@@ -100,7 +101,7 @@ func previewSiteResult(ctx context.Context, workspaceRoot string, arguments []by
 // pagesOutputIndex is the output to render: the argument when given, otherwise the only
 // github-pages output; none or several without a choice is an error that says what to do.
 func pagesOutputIndex(workspaceRoot string, arguments []byte) (int, error) {
-	loaded, err := workspacesettings.LoadSettings(workspaceRoot)
+	loaded, err := editorsettings.LoadConfiguration(workspaceRoot)
 	if err != nil {
 		return 0, err
 	}
