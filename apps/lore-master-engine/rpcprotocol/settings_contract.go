@@ -9,6 +9,19 @@ const MethodSettingsRead = "settings/read"
 // comments and key order. Result: null.
 const MethodSettingsSave = "settings/save"
 
+// MethodSettingsMigrate imports an existing .lore-master.yaml into the folder's
+// .vscode/settings.json (#308), unless the editor's settings already hold the
+// configuration. The yaml is left in place. Result: SettingsMigrateResult.
+const MethodSettingsMigrate = "settings/migrate"
+
+// SettingsMigrateResult says whether anything was written.
+type SettingsMigrateResult struct {
+	// Migrated is true when the yaml was imported on this call.
+	Migrated bool `json:"migrated"`
+	// Path is the settings file written; empty when nothing was.
+	Path string `json:"path,omitempty"`
+}
+
 // SettingsReadParams names the workspace.
 type SettingsReadParams struct {
 	// WorkspaceRoot is the folder holding .lore-master.yaml, as an absolute path.

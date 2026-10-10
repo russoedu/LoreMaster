@@ -9,35 +9,35 @@ import (
 )
 
 type outputWire struct {
-	Platform       string        `json:"platform"`
-	BaseURL        string        `json:"baseUrl"`
-	Space          string        `json:"space"`
-	ParentPageID   string        `json:"parentPageId"`
-	TitlePrefix    string        `json:"titlePrefix"`
-	Direction      string        `json:"direction"`
-	Content        []contentWire `json:"content"`
-	MermaidMode    string        `json:"mermaidMode"`
-	TitleCollision string        `json:"titleCollision"`
-	LinkMode       string        `json:"linkMode"`
-	Repo           string        `json:"repo"`
-	Branch         string        `json:"branch"`
-	Path           string        `json:"path"`
-	Include        []string      `json:"include"`
-	Exclude        []string      `json:"exclude"`
+	Platform       string        `json:"platform,omitempty"`
+	BaseURL        string        `json:"baseUrl,omitempty"`
+	Space          string        `json:"space,omitempty"`
+	ParentPageID   string        `json:"parentPageId,omitempty"`
+	TitlePrefix    string        `json:"titlePrefix,omitempty"`
+	Direction      string        `json:"direction,omitempty"`
+	Content        []contentWire `json:"content,omitempty"`
+	MermaidMode    string        `json:"mermaidMode,omitempty"`
+	TitleCollision string        `json:"titleCollision,omitempty"`
+	LinkMode       string        `json:"linkMode,omitempty"`
+	Repo           string        `json:"repo,omitempty"`
+	Branch         string        `json:"branch,omitempty"`
+	Path           string        `json:"path,omitempty"`
+	Include        []string      `json:"include,omitempty"`
+	Exclude        []string      `json:"exclude,omitempty"`
 }
 
 type contentWire struct {
-	Type     string   `json:"type"`
-	Roots    []string `json:"roots"`
-	Excludes []string `json:"excludes"`
-	Template string   `json:"template"`
+	Type     string   `json:"type,omitempty"`
+	Roots    []string `json:"roots,omitempty"`
+	Excludes []string `json:"excludes,omitempty"`
+	Template string   `json:"template,omitempty"`
 }
 
 type generatorWire struct {
-	Type   string   `json:"type"`
-	Input  []string `json:"input"`
-	Output string   `json:"output"`
-	Title  string   `json:"title"`
+	Type   string   `json:"type,omitempty"`
+	Input  []string `json:"input,omitempty"`
+	Output string   `json:"output,omitempty"`
+	Title  string   `json:"title,omitempty"`
 }
 
 // toSettings turns the merged keys into settings. The user-level defaults
