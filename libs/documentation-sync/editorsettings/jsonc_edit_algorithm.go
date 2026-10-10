@@ -143,7 +143,7 @@ func skipTrivia(source []byte, i int) int {
 			}
 		case source[i] == '/' && i+1 < len(source) && source[i+1] == '*':
 			i += 2
-			for i+1 < len(source) && !(source[i] == '*' && source[i+1] == '/') {
+			for i+1 < len(source) && (source[i] != '*' || source[i+1] != '/') {
 				i++
 			}
 			i += 2

@@ -34,7 +34,7 @@ func dropComments(source []byte) []byte {
 			}
 		case c == '/' && i+1 < len(source) && source[i+1] == '*':
 			i += 2
-			for i+1 < len(source) && !(source[i] == '*' && source[i+1] == '/') {
+			for i+1 < len(source) && (source[i] != '*' || source[i+1] != '/') {
 				if source[i] == '\n' {
 					out = append(out, '\n')
 				}
