@@ -193,3 +193,29 @@ func TestGeneratorsSurviveAReadAndSave(t *testing.T) {
 		t.Fatalf("save dropped a generator: %+v", again.Generators)
 	}
 }
+
+func TestAnOutputsIncludeAndExcludeListsSurviveReadAndSave(t *testing.T) {
+	root := t.TempDir()
+	file := filepath.Join(root, ".lore-master.yaml")
+	body := "version: 1\noutputs:\n  - platform: confluence\n    baseUrl: https://acme.atlassian.net/wiki\n    space: ENG\n    parentPageId: \"1\"\n    titlePrefix: ENG\n    include:\n      - docs/keep.md\n    exclude:\n      - drafts/\n"
+	if err := os.WriteFile(file, []byte(body), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	conn := connect(t)
+
+	result := read(t, conn, root)
+	output := result.Settings.Outputs[0]
+	if len(output.Include) != 1 || output.Include[0] != "docs/keep.md" || len(output.Exclude) != 1 || output.Exclude[0] != "drafts/" {
+		t.Fatalf("read include=%v exclude=%v", output.Include, output.Exclude)
+	}
+	if err := conn.Call(context.Background(), rpcprotocol.MethodSettingsSave, rpcprotocol.SettingsSaveParams{WorkspaceRoot: root, Settings: result.Settings}, nil); err != nil {
+		t.Fatal(err)
+	}
+	saved, err := os.ReadFile(file)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.Contains(string(saved), "docs/keep.md") || !strings.Contains(string(saved), "drafts/") {
+		t.Fatalf("a save dropped the lists:\n%s", saved)
+	}
+}

@@ -72,6 +72,11 @@ type Output struct {
 	Branch string `json:"branch,omitempty"`
 	// Path is the folder inside the branch the site is published to; empty means the root.
 	Path string `json:"path,omitempty"`
+	// Include is gitignore-syntax patterns this output reads even though the ignore list or an
+	// exclude leaves them out; the most specific entry wins.
+	Include []string `json:"include,omitempty"`
+	// Exclude is gitignore-syntax patterns this output leaves out, on top of the ignore list.
+	Exclude []string `json:"exclude,omitempty"`
 }
 
 // Content is one kind of lore an output syncs.
