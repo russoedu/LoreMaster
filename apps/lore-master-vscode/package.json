@@ -65,7 +65,7 @@
       },
       {
         "command": "loreMaster.openConfig",
-        "title": "Open config",
+        "title": "Open settings",
         "category": "LoreMaster"
       },
       {
